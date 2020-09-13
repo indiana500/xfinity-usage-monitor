@@ -1,0 +1,9 @@
+1. add email support
+	email user every x days
+	email user if usage is above xx% of 100% usage line
+	email user with summary at the end of the month
+
+2. add webpage support
+	graph current month and display
+	at end of month save off graph and data and start new graph and file
+

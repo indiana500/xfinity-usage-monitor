@@ -1,0 +1,10 @@
+
+
+FROM_ADDR = {'username':'from_address', 'domain':'domain.com'}
+PWD = 'password'
+EMAIL_SERVER = 'smtp.domain.com'
+EMAIL_PORT = 123
+
+STATUS_TO_ADDR = {'username':'to_address', 'domain':'domain.com'}
+
+
