@@ -9,7 +9,6 @@ from xfinity_account_settings import *
 from settings import *
 from time import sleep, time
 from usage_reading import UsageReading
-from sample_data import *
 from event_log import EventLog
 
 if __name__ == '__main__':

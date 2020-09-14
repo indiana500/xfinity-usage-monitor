@@ -12,7 +12,6 @@ from time import *
 
 from email_settings import SEND_EMAIL
 from csv_write import csv_writer
-from temp import curr_time
 
 if SEND_EMAIL:
     import smtplib
