@@ -17,18 +17,15 @@ This is the total number of activations this week (SUN to SAT):
 STATUS_MAIL_END = """
 
 Regards,
-your Sump Pump Monitor
+your Xfinity-Usage Monitor
 """
 HIGH_LEVEL_EMAIL_START = """Hello,
-The water level in the sump pit may have reached a high level
-without pump activation.
+You current usage level is projected to be abov 90% for the month.
 
-Please check the sump pump at your earliest convenience.
-
-High level has been active for
+You currently have used.
 """
-HIGH_LEVEL_MAIL_END = """ seconds
+HIGH_LEVEL_MAIL_END = """ GB
 
 Regards,
-your Sump Pump Monitor
+your Xfinity-Usage Monitor
 """
