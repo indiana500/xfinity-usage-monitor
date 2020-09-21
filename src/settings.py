@@ -12,8 +12,14 @@ CYCLE_TIME = 2 * SEC_PER_HOUR - 70
 RETRY_CYCLE_TIME = 10 * SEC_PER_MIN
 NUM_OF_RETRIES = 3
 
-# Set LOG_REFRESH_TIME to 'Year', 'Quarter', 'Month', 'Week', or 'Day'
-LOG_REFRESH_TIME = 'Quarter'
+USAGE_ALARM_LEVEL = 0.9  # if this is updated, updated header and key names as well
+
+DATA_KEYS = ['time', 'usage', 'allotment', 'projected usage', '100% Usage', '90% Usage']
+DATA_HEADERS = ['Date and Time', 'Usage Month to Date (GB)', 'Alloted Usage (GB)', 
+                'Projected Usage (GB)', '100% Usage (GB)', '90% Usage (GB)']
+
+# Set LOG_REFRESH_TIME to 'year', 'quarter', 'month', 'week', or 'day'
+LOG_REFRESH_TIME = 'month'
 
 '''
 path for raspbian

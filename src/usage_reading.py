@@ -1,13 +1,14 @@
 '''
 Created on Sep 2, 2020
 
-@author: admin
+@author: Michael Walden
 '''
 
 from time import localtime, time, mktime
 from datetime import date
 from calendar import monthlen
 from constants import SEC_PER_DAY
+from settings import DATA_HEADERS, USAGE_ALARM_LEVEL
 
 class UsageReading(object):
     '''
@@ -20,16 +21,17 @@ class UsageReading(object):
         '''
         if time_in is None:
             self.timestamp = int(time())
+            self.timestamp = int(self.start_of_month_timestamp())
         else:
             self.timestamp = time_in
         if data_in is None:
             self.data_used = 0
         else:
-            self.data_used = data_in
+            self.data_used = int(data_in)
         if allotment_in is None:
             self.allotment = 0
         else:
-            self.allotment = allotment_in
+            self.allotment = int(allotment_in)
     
     def get_struct_time (self):
         '''
@@ -47,12 +49,12 @@ class UsageReading(object):
         '''
         if new_reading is None:
             self.timestamp = int(timestamp)
-            self.data_used = data_used
-            self.allotment = allotment
+            self.data_used = int(data_used)
+            self.allotment = int(allotment)
         elif isinstance(new_reading, UsageReading):
-            self.timestamp = new_reading.get_timestamp()
-            self.data_used = new_reading.get_data_used()
-            self.allotment = new_reading.get_allotment()
+            self.timestamp = int(new_reading.get_timestamp())
+            self.data_used = int(new_reading.get_data_used())
+            self.allotment = int(new_reading.get_allotment())
         
         
     def get_day(self):
@@ -100,6 +102,53 @@ class UsageReading(object):
         end_of_month_date = self.current_date().replace(day=self.days_in_month())
         return mktime(end_of_month_date.timetuple()) + SEC_PER_DAY
     
+    def current_percent_of_month(self):
+        '''
+        Return percentage of month that has been completed, between 0 and 1
+        '''
+        return ((self.timestamp - self.start_of_month_timestamp()) /
+                (self.end_of_month_timestamp() - self.start_of_month_timestamp()))
+    
+    def get_current_allotment(self):
+        '''
+        Return usage allotment based on how far we are through the month
+        '''
+        return int(self.allotment * self.current_percent_of_month())
+    
+    def get_current_alarm_level(self):
+        '''
+        Return alarm level based on how far we are through the month
+        '''
+        return int(self.current_percent_of_month() * self.allotment * USAGE_ALARM_LEVEL)
+    
+    def projected_usage(self):
+        '''
+        Uses rate from beginning of month to report projected usage for the month
+ 
+            usage * (days in month * seconds per day)
+        =  ------------------------------------------
+            seconds from start of month until now
+ 
+        Returns: in indicated GB projected to be used for the month
+           
+        '''
+        if self.timestamp == self.start_of_month_timestamp():
+            return 0
+        else:
+            return int(self.data_used * self.days_in_month() * SEC_PER_DAY / 
+                    (self.timestamp - self.start_of_month_timestamp()) )
+             
+    def get_list(self):
+        '''
+        returns a list of the values to store in a log
+        '''
+        return [self.timestamp, 
+                self.data_used, 
+                self.allotment,
+                self.projected_usage(),
+                self.get_current_allotment(),
+                self.get_current_alarm_level()]
+        
     def __str__(self):
         return 'Time: {0}\nData Used: {1:0.2f} GB\nAlloted: {2:0.1f} GB'.format(self.get_struct_time(), self.get_data_used(), self.get_allotment())
     
