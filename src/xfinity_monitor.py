@@ -61,7 +61,10 @@ if __name__ == '__main__':
             # Notify user if you are above the alarm limit
             if curr_data_point.get_data_used() >= curr_data_point.get_current_alarm_level():
                 print('you may be on the way to exceeding your quota')
-                
+            
+            # plot the data
+            month_data.plot_data()
+            
             # set cycle time for next reading
             cycle_time = CYCLE_TIME
 
