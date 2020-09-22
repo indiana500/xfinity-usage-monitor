@@ -60,6 +60,9 @@ class UsageReading(object):
     def get_day(self):
         return date.fromtimestamp(self.timestamp).day
     
+    def get_weekday(self):
+        return date.fromtimestamp(self.timestamp).weekday()
+    
     def get_month(self):
         return date.fromtimestamp(self.timestamp).month
     

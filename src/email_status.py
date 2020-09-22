@@ -8,6 +8,7 @@ from email.message import EmailMessage
 from email.headerregistry import Address
 from settings import DEBUG
 from email_settings import *
+from datetime import date
 
 def send_email(msg_from, msg_to, msg_subject, msg_body):
 
@@ -26,26 +27,77 @@ def send_email(msg_from, msg_to, msg_subject, msg_body):
     s.login(Address(username=FROM_ADDR['username'], domain=FROM_ADDR['domain']), PWD)
     s.send_message(msg)
 
-def email_status(num_activations):
+def email_status(usage, allotment, status_date):
     '''
-    Send Email with number of activations
+    Send Email with current status
+    
+    inputs: usage: int
+            allotment: int
+            status_date: datetime.date
     '''
-    msg_from = Address(display_name='Raspberry Pi 3', username=FROM_ADDR['username'], domain=FROM_ADDR['domain'])
-    msg_to = Address(username=STATUS_TO_ADDR['username'], domain=STATUS_TO_ADDR['domain'])
-    msg_body = STATUS_EMAIL_START + str(num_activations) + STATUS_MAIL_END
-    msg_subject = 'Sump Pump Activation Weekly Summary'
+    msg_from = Address(display_name='Raspberry Pi 1', 
+                       username=FROM_ADDR['username'], 
+                       domain=FROM_ADDR['domain'])
+    msg_to = Address(username=STATUS_TO_ADDR['username'], 
+                     domain=STATUS_TO_ADDR['domain'])
+    msg_body = STATUS_EMAIL.format(usage=usage, 
+                                   allotment=allotment, 
+                                   month=status_date.strftime("%B"), 
+                                   year=status_date.strftime("%Y"))
+    msg_subject = 'Xfinitiy usage status email'
     if SEND_EMAIL:
         send_email(msg_from, msg_to, msg_subject, msg_body)
     
-def email_high_level(ctr):
+def email_summary(usage, allotment, status_date):
     '''
-    Send email to indicate water level is high, which
-    might indicate pump is not activating
+    Send Email with current status
+    
+    inputs: usage: int
+            allotment: int
+            status_date: datetime.date
     '''
-    msg_from = Address(display_name='Raspberry Pi 3', username=FROM_ADDR['username'], domain=FROM_ADDR['domain'])
-    msg_to = Address(username=STATUS_TO_ADDR['username'], domain=STATUS_TO_ADDR['domain'])
-    msg_body = HIGH_LEVEL_EMAIL_START + str(ctr) + HIGH_LEVEL_MAIL_END
-    msg_subject = 'SUMP WATER LEVEL HIGH'
+    msg_from = Address(display_name='Raspberry Pi 1', 
+                       username=FROM_ADDR['username'], 
+                       domain=FROM_ADDR['domain'])
+    msg_to = Address(username=STATUS_TO_ADDR['username'], 
+                     domain=STATUS_TO_ADDR['domain'])
+    msg_body = SUMMARY_EMAIL.format(usage=usage, 
+                                    allotment=allotment, 
+                                    month=status_date.strftime("%B"), 
+                                    year=status_date.strftime("%Y"))
+    msg_subject = 'Xfinitiy usage summary email {month} {year}'.format(month=status_date.strftime("%B"), 
+                                                                       year=status_date.strftime("%Y"))
     if SEND_EMAIL:
         send_email(msg_from, msg_to, msg_subject, msg_body)
     
+def email_high_level(usage, projection):
+    '''
+    Send email to indicate usage is high
+
+    inputs: usage: int
+            allotment: int
+            status_date: datetime.date
+    '''
+    msg_from = Address(display_name='Raspberry Pi 1', 
+                       username=FROM_ADDR['username'], 
+                       domain=FROM_ADDR['domain'])
+    msg_to = Address(username=STATUS_TO_ADDR['username'], 
+                     domain=STATUS_TO_ADDR['domain'])
+    msg_body = HIGH_LEVEL_EMAIL.format(usage=usage, 
+                                       percentage=projection)
+    msg_subject = 'Xfinitiy usage high level email'
+    if SEND_EMAIL:
+        send_email(msg_from, msg_to, msg_subject, msg_body)
+
+if __name__ == '__main__':
+    msg_from = Address(display_name='Raspberry Pi 1', 
+                       username=FROM_ADDR['username'], 
+                       domain=FROM_ADDR['domain'])
+    msg_to = Address(username=STATUS_TO_ADDR['username'], 
+                     domain=STATUS_TO_ADDR['domain'])
+    msg_body = TEST_EMAIL.format(a=10, b=20)
+    msg_subject = 'Test'
+    print(msg_body)
+    if SEND_EMAIL:
+        send_email(msg_from, msg_to, msg_subject, msg_body)
+   

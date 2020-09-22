@@ -43,6 +43,21 @@ class MonthUsage(object):
     def get_dict(self):
         return self.usage_data
     
+    def get_time_list(self):
+        return self.usage_data['time']
+    
+    def get_usage_list(self):
+        return self.usage_data['usage']
+    
+    def get_allotment_list(self):
+        return self.usage_data['allotment']
+    
+    def get_100_list(self):
+        return self.usage_data['100% Usage']
+    
+    def get_alarm_list(self):
+        return self.usage_data['90% Usage']
+       
     def plot_data(self):
         '''
         create and save a png of the plot of data use and allotment for the current month

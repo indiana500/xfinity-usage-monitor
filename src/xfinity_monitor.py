@@ -4,14 +4,15 @@ Created on Sep 1, 2020
 @author: Michael Walden
 '''
 import os
+from time import sleep
+from datetime import date
 from xfinity_usage.xfinity_usage import XfinityUsage
 from xfinity_account_settings import *
 from settings import *
-from time import sleep, time
 from usage_reading import UsageReading
 from event_log import EventLog
 from month_usage import MonthUsage
-
+from email_status import *
 
 if __name__ == '__main__':
     '''
@@ -19,6 +20,7 @@ if __name__ == '__main__':
     '''
     curr_data_point = UsageReading()
     curr_month = curr_data_point.get_month()
+    curr_weekday = curr_data_point.get_weekday()
     
     log_it = EventLog(DATA_PATH, DATA_HEADERS, 'month')
     log_it.log_data(curr_data_point.get_list())
@@ -51,16 +53,30 @@ if __name__ == '__main__':
             # log the data
             log_it.log_data(curr_data_point.get_list())
             
-            # Update the dictionary with this months data (create new month if necessary)
-            if curr_data_point.get_month() != curr_month:
-                month_data.reinit_dict(curr_data_point.get_list())
+            # email status on Sunday Morning (weekday = 6)
+            if curr_weekday == curr_data_point.get_weekday(): # change to !=
+                if curr_data_point.get_weekday() != 6: # change to ==
+                    email_status(curr_data_point.get_data_used(),
+                                 curr_data_point.get_allotment(),
+                                 curr_data_point.current_date())
+                    curr_weekday = curr_data_point.get_weekday()
+            
+            # Update the dictionary with this months data (create new month and email summary if necessary)
+            if curr_data_point.get_month() == curr_month: # change to !=
+                email_summary(month_data.get_usage_list()[-1], 
+                             month_data.get_allotment_list()[-1], 
+                             date.fromtimestamp(month_data.get_time_list()[-1]))
+#                 month_data.reinit_dict(curr_data_point.get_list()) # uncomment
+                month_data.update(curr_data_point.get_list()) # delete this line
                 curr_month = curr_data_point.get_month()
             else:
                 month_data.update(curr_data_point.get_list())
             
             # Notify user if you are above the alarm limit
-            if curr_data_point.get_data_used() >= curr_data_point.get_current_alarm_level():
+            if curr_data_point.get_data_used() >= curr_data_point.get_current_alarm_level(): # change settings back to 0.9
                 print('you may be on the way to exceeding your quota')
+                email_high_level(curr_data_point.get_data_used(), 
+                             int(100 * curr_data_point.projected_usage() / curr_data_point.get_allotment()))
             
             # plot the data
             month_data.plot_data()
@@ -72,20 +88,4 @@ if __name__ == '__main__':
 
         sleep(cycle_time)
 
-
-
-def data_point_to_dict(data_point):
-    '''
-    converts a data point to a dictionary type
-    where the keys are DATA_HEADERS
-    '''
-    return {DATA_HEADERS[0]: [data_point.get_timestamp()], 
-            DATA_HEADERS[1]: [data_point.get_data_used()],
-            DATA_HEADERS[2]: [data_point.get_allotment()],
-            DATA_HEADERS[3]: [data_point.projected_usage()],
-            DATA_HEADERS[4]: [int(data_point.current_percent_of_month() * data_point.get_allotment())],
-            DATA_HEADERS[5]: [int(data_point.current_percent_of_month() * data_point.get_allotment() * 0.9)]
-            }
-
-        
         

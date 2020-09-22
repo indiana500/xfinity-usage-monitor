@@ -12,7 +12,7 @@ CYCLE_TIME = 2 * SEC_PER_HOUR - 70
 RETRY_CYCLE_TIME = 10 * SEC_PER_MIN
 NUM_OF_RETRIES = 3
 
-USAGE_ALARM_LEVEL = 0.9  # if this is updated, updated header and key names as well
+USAGE_ALARM_LEVEL = 0.2  # if this is updated, updated header and key names as well
 
 DATA_KEYS = ['time', 'usage', 'allotment', 'projected usage', '100% Usage', '90% Usage']
 DATA_HEADERS = ['Date and Time', 'Usage Month to Date (GB)', 'Alloted Usage (GB)', 
@@ -33,4 +33,4 @@ path for windows
 # DATA_PATH = 'C:\\Users\\admin\\python-workspace\\Xfinity_usage\\data\\' 
 
 
-DEBUG = True
+DEBUG = False
