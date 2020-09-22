@@ -34,7 +34,7 @@ your Xfinity-Usage Monitor
 
 
 HIGH_LEVEL_EMAIL = """Hello,
-You current usage level is projected to be abov 90% for the month.
+You current usage level is projected to be above 90% for the month.
 
 You currently have used {usage} GB.  Based on the remaining time in the month, your total data
 usage is projected to be {percentage}% of your allotment.
