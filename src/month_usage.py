@@ -64,8 +64,7 @@ class MonthUsage(object):
         '''
         # initialization
         plot_x_series = [datetime.fromtimestamp(x) for x in self.usage_data['time']]
-        print(plot_x_series)
-        days = mdates.DayLocator(interval=1)
+        days = mdates.DayLocator(interval=2)
         day_fmt = mdates.DateFormatter('%D')
         
         # create figure from data
