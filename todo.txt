@@ -1,9 +1,12 @@
 1. add email support
-	email user every x days
-	email user if usage is above xx% of 100% usage line
-	email user with summary at the end of the month
+	email user every x days - done
+	email user if usage is above xx% of 100% usage line - done
+	email user with summary at the end of the month - done
 
 2. add webpage support
-	graph current month and display
+	graph current month and display - done
 	at end of month save off graph and data and start new graph and file
 
+3. modify program so that it reads in the old file of data, and just runs once 
+   so that a cron job can be used to run the program every x hours.  this wil
+   improve error handling for xfinity down times, etc.

@@ -99,6 +99,7 @@ class MonthUsage(object):
         # show or save the plot depending which line is commented out
 #         plt.show()
         plt.savefig(DATA_PATH + 'curr_month_plot.png')
+        plt.close('all')
 
         return
     
