@@ -20,7 +20,7 @@ The expectation is to execute this program at an appropriate rate, 2 hours
 suggested, via a cron job
 
 '''
-
+import os
 from time import sleep
 from datetime import datetime
 from xfinity_usage.xfinity_usage import XfinityUsage
@@ -36,6 +36,8 @@ if __name__ == '__main__':
     '''
     initialize
     '''
+    os.chdir(DATA_PATH)
+    
     curr_data_point = UsageReading()
     curr_weekday = curr_data_point.get_weekday()
     
@@ -59,8 +61,8 @@ if __name__ == '__main__':
     while retries <= NUM_OF_RETRIES:
         try:
             rec_data = x_scrape.run()
-        except Exception:
-            print(Exception)
+        except Exception as e:
+            print(e)
             retries += 1
             print('retries: ', retries)
             cycle_time = RETRY_CYCLE_TIME
