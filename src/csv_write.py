@@ -5,12 +5,14 @@ Created on May 2, 2018
 '''
 import csv
 
+
 class csv_writer(object):
     '''
     csv_writer implements writing procedures for csv files
     
     '''
-
+    self.file_exists = False
+    
     def __init__(self, path, headers=None):
         '''
         Constructor for csv_write class
@@ -34,4 +36,36 @@ class csv_writer(object):
             writer = csv.writer(csv_file)
             writer.writerows(rows)
         
+class csv_reader(object):
+    '''
+    csv_reader implements reading procedures for csv file
+    '''
+    def __init__(self, path):
+        '''
+        constructor for csv_reader class
+        
+        path (string): path and filename
+        first line of file contains the key values
+        '''
+        self.path = path
+        out_dict = {}
     
+    def get_csv_dict(self):
+        '''
+        retrieve data in the csv file into a dictionary of lists
+        '''
+        with open(self.path, 'r', newline='') as csv_file:
+            reader = csv.DictReader(csv_file)
+            for key in reader.fieldnames:
+                out_dict[key] = []
+            for row in reader:
+                for key in row:
+                    if key != 'Date and Time':
+                        out_dict[key].append(int(row[key]))
+                    else:
+                        out_dict[key].append(row[key]) 
+        return out_dict
+
+from settings import DATA_PATH
+path = DATA_PATH + 'Log_file 2020-09.csv'
+data_file = csv_reader(path)

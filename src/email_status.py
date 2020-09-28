@@ -27,7 +27,7 @@ def send_email(msg_from, msg_to, msg_subject, msg_body):
     s.login(Address(username=FROM_ADDR['username'], domain=FROM_ADDR['domain']), PWD)
     s.send_message(msg)
 
-def email_status(usage, allotment, status_date):
+def email_status(usage, allotment, usage_rate, status_date):
     '''
     Send Email with current status
     
@@ -43,7 +43,8 @@ def email_status(usage, allotment, status_date):
     msg_body = STATUS_EMAIL.format(usage=usage, 
                                    allotment=allotment, 
                                    month=status_date.strftime("%B"), 
-                                   year=status_date.strftime("%Y"))
+                                   year=status_date.strftime("%Y"),
+                                   usage_rate=usage_rate)
     msg_subject = 'Xfinitiy usage status email'
     if SEND_EMAIL:
         send_email(msg_from, msg_to, msg_subject, msg_body)

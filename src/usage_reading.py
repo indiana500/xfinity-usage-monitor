@@ -83,7 +83,7 @@ class UsageReading(object):
         Return epoch time for first day of month for timestamp
         '''
         start_of_month = date.fromtimestamp(self.timestamp).replace(day=1)
-        return mktime(start_of_month.timetuple())
+        return int(mktime(start_of_month.timetuple()))
     
     def current_date(self):
         '''
@@ -151,6 +151,12 @@ class UsageReading(object):
                 self.projected_usage(),
                 self.get_current_allotment(),
                 self.get_current_alarm_level()]
+    
+    def get_dict(self):
+        '''
+        returns a dictionary of the values to store in a log
+        '''
+        return dict(zip(DATA_HEADERS, self.get_list()))
         
     def __str__(self):
         return 'Time: {0}\nData Used: {1:0.2f} GB\nAlloted: {2:0.1f} GB'.format(self.get_struct_time(), self.get_data_used(), self.get_allotment())

@@ -17,6 +17,7 @@ STATUS_EMAIL = """Hello,
 This is your weekly status email.
 
 Currently, your xfinity account has used {usage} of {allotment} GB for {month} {year}.
+This puts you at a {usage_rate}% estimated usage rate.
 
 Regards,
 your Xfinity-Usage Monitor
