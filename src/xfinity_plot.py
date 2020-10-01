@@ -37,8 +37,6 @@ def cleanup_end_of_month(month_data):
         month_data.remove_last_data_point()
         if lines_removed >= (len_of_data/2):
             break
-    print('length of data: ', len_of_data)
-    print('lines removed ', lines_removed)
     return
 
 if __name__ == '__main__':
