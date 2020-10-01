@@ -44,7 +44,7 @@ if __name__ == '__main__':
     initialize
     '''
     args = sys.argv[1:]
-    print(args)
+
     if args==[]:
         plot_month = datetime.today() - timedelta(days=datetime.today().day)
         month_string =plot_month.strftime('%Y-%m')
