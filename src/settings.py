@@ -10,7 +10,7 @@ import os
 
 CYCLE_TIME = 2 * SEC_PER_HOUR - 70
 RETRY_CYCLE_TIME = 10 * SEC_PER_MIN
-NUM_OF_RETRIES = 4
+NUM_OF_RETRIES = 2
 
 USAGE_ALARM_LEVEL = 0.9  # if this is updated, updated header and key names as well
 

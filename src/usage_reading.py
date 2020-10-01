@@ -55,8 +55,8 @@ class UsageReading(object):
             self.timestamp = int(new_reading.get_timestamp())
             self.data_used = int(new_reading.get_data_used())
             self.allotment = int(new_reading.get_allotment())
-        
-        
+
+    
     def get_day(self):
         return date.fromtimestamp(self.timestamp).day
     
@@ -127,26 +127,26 @@ class UsageReading(object):
     def projected_usage(self):
         '''
         Uses rate from beginning of month to report projected usage for the month
- 
+
             usage * (days in month * seconds per day)
         =  ------------------------------------------
             seconds from start of month until now
- 
+
         Returns: in indicated GB projected to be used for the month
-           
+        
         '''
         if self.timestamp == self.start_of_month_timestamp():
             return 0
         else:
             return int(self.data_used * self.days_in_month() * SEC_PER_DAY / 
                     (self.timestamp - self.start_of_month_timestamp()) )
-             
+    
     def get_list(self):
         '''
         returns a list of the values to store in a log
         '''
-        return [self.timestamp, 
-                self.data_used, 
+        return [self.timestamp,
+                self.data_used,
                 self.allotment,
                 self.projected_usage(),
                 self.get_current_allotment(),
@@ -157,7 +157,6 @@ class UsageReading(object):
         returns a dictionary of the values to store in a log
         '''
         return dict(zip(DATA_HEADERS, self.get_list()))
-        
+    
     def __str__(self):
         return 'Time: {0}\nData Used: {1:0.2f} GB\nAlloted: {2:0.1f} GB'.format(self.get_struct_time(), self.get_data_used(), self.get_allotment())
-    

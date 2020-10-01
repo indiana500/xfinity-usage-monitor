@@ -1,0 +1,8 @@
+# Lines added to crontab to support xfinity monitor
+#
+# before running xfinity monitor, delete previous geckodriver log (not possible to suppress)
+45 1-23/2 * * * rm /home/pi/Public/xfinity-monitor/data/geckodriver.log
+# run xfinity monitor at 10 minutes before every even hour, so you get close to end of day
+50 1-23/2 * * * export DISPLAY=:0; bash /home/pi/Public/xfinity-monitor/run_xfinity_monitor.sh
+# at the top of each even hour, copy the plot to web server page
+00 */2 * * * /bin/cp -u /home/pi/Public/xfinity-monitor/data/curr_month_plot.png /var/www/html/fig

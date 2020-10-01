@@ -35,14 +35,14 @@ def email_status(usage, allotment, usage_rate, status_date):
             allotment: int
             status_date: datetime.date
     '''
-    msg_from = Address(display_name='Raspberry Pi 1', 
-                       username=FROM_ADDR['username'], 
+    msg_from = Address(display_name='Raspberry Pi 1',
+                       username=FROM_ADDR['username'],
                        domain=FROM_ADDR['domain'])
-    msg_to = Address(username=STATUS_TO_ADDR['username'], 
+    msg_to = Address(username=STATUS_TO_ADDR['username'],
                      domain=STATUS_TO_ADDR['domain'])
-    msg_body = STATUS_EMAIL.format(usage=usage, 
-                                   allotment=allotment, 
-                                   month=status_date.strftime("%B"), 
+    msg_body = STATUS_EMAIL.format(usage=usage,
+                                   allotment=allotment,
+                                   month=status_date.strftime("%B"),
                                    year=status_date.strftime("%Y"),
                                    usage_rate=usage_rate)
     msg_subject = 'Xfinitiy usage status email'
@@ -57,20 +57,20 @@ def email_summary(usage, allotment, status_date):
             allotment: int
             status_date: datetime.date
     '''
-    msg_from = Address(display_name='Raspberry Pi 1', 
-                       username=FROM_ADDR['username'], 
+    msg_from = Address(display_name='Raspberry Pi 1',
+                       username=FROM_ADDR['username'],
                        domain=FROM_ADDR['domain'])
-    msg_to = Address(username=STATUS_TO_ADDR['username'], 
+    msg_to = Address(username=STATUS_TO_ADDR['username'],
                      domain=STATUS_TO_ADDR['domain'])
-    msg_body = SUMMARY_EMAIL.format(usage=usage, 
-                                    allotment=allotment, 
-                                    month=status_date.strftime("%B"), 
+    msg_body = SUMMARY_EMAIL.format(usage=usage,
+                                    allotment=allotment,
+                                    month=status_date.strftime("%B"),
                                     year=status_date.strftime("%Y"))
-    msg_subject = 'Xfinitiy usage summary email {month} {year}'.format(month=status_date.strftime("%B"), 
+    msg_subject = 'Xfinitiy usage summary email {month} {year}'.format(month=status_date.strftime("%B"),
                                                                        year=status_date.strftime("%Y"))
     if SEND_EMAIL:
         send_email(msg_from, msg_to, msg_subject, msg_body)
-    
+
 def email_high_level(usage, projection):
     '''
     Send email to indicate usage is high
@@ -79,26 +79,25 @@ def email_high_level(usage, projection):
             allotment: int
             status_date: datetime.date
     '''
-    msg_from = Address(display_name='Raspberry Pi 1', 
-                       username=FROM_ADDR['username'], 
+    msg_from = Address(display_name='Raspberry Pi 1',
+                       username=FROM_ADDR['username'],
                        domain=FROM_ADDR['domain'])
-    msg_to = Address(username=STATUS_TO_ADDR['username'], 
+    msg_to = Address(username=STATUS_TO_ADDR['username'],
                      domain=STATUS_TO_ADDR['domain'])
-    msg_body = HIGH_LEVEL_EMAIL.format(usage=usage, 
+    msg_body = HIGH_LEVEL_EMAIL.format(usage=usage,
                                        percentage=projection)
     msg_subject = 'Xfinitiy usage high level email'
     if SEND_EMAIL:
         send_email(msg_from, msg_to, msg_subject, msg_body)
 
 if __name__ == '__main__':
-    msg_from = Address(display_name='Raspberry Pi 1', 
-                       username=FROM_ADDR['username'], 
+    msg_from = Address(display_name='Raspberry Pi 1',
+                       username=FROM_ADDR['username'],
                        domain=FROM_ADDR['domain'])
-    msg_to = Address(username=STATUS_TO_ADDR['username'], 
+    msg_to = Address(username=STATUS_TO_ADDR['username'],
                      domain=STATUS_TO_ADDR['domain'])
     msg_body = TEST_EMAIL.format(a=10, b=20)
     msg_subject = 'Test'
     print(msg_body)
     if SEND_EMAIL:
         send_email(msg_from, msg_to, msg_subject, msg_body)
-   

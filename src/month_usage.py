@@ -4,6 +4,8 @@ Created on Sep 2, 2020
 @author: Michael Walden
 '''
 
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from settings import *
@@ -79,12 +81,12 @@ class MonthUsage(object):
         ax.yaxis.set_label_text('Usage, GB')
         
         # add usage information text
-        current_percent_string = ('Currently running at: ' + 
-                                  '{:.1f}'.format(100 * self.usage_data['Usage Month to Date (GB)'][-1] / self.usage_data['100% Usage (GB)'][-1]) 
+        current_percent_string = ('Currently running at: ' +
+                                  '{:.1f}'.format(100 * self.usage_data['Usage Month to Date (GB)'][-1] / self.usage_data['100% Usage (GB)'][-1])
                                   + '%')
-        usage_string = ('Current Estimated Monthly Usage: ' + 
-                        str(self.usage_data['Projected Usage (GB)'][-1]) + 
-                        ' GB of ' + str(self.usage_data['Alloted Usage (GB)'][-1]) + ' GB allowed') 
+        usage_string = ('Current Estimated Monthly Usage: ' +
+                        str(self.usage_data['Projected Usage (GB)'][-1]) +
+                        ' GB of ' + str(self.usage_data['Alloted Usage (GB)'][-1]) + ' GB allowed')
         if self.usage_data['Projected Usage (GB)'][-1] >= self.usage_data['Alloted Usage (GB)'][-1]:
             font_color = "red"
         else:
@@ -92,12 +94,10 @@ class MonthUsage(object):
         plt.figtext(0.97,0.15, current_percent_string, horizontalalignment='right', fontweight='bold', color=font_color, fontsize='large')
         plt.figtext(0.97,0.12, usage_string, horizontalalignment='right', fontweight='bold', color=font_color, fontsize='large')
         plt.figtext(0.99,0.01, plot_x_series[-1], horizontalalignment='right', fontweight='light', color='gray', fontsize='large')
-                    
+        
         # show or save the plot depending which line is commented out
 #         plt.show()
         plt.savefig(DATA_PATH + 'curr_month_plot.png')
         plt.close('all')
 
         return
-    
-        
