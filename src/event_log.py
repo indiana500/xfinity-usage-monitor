@@ -21,7 +21,7 @@ class EventLog(object):
             If the file already exists, then the data can be read.  Check file_already_exists()
     '''
     
-    def __init__(self, data_path, headers):
+    def __init__(self, data_path, headers, filedate=None, init=True):
         '''
         Create an event log or find the current one
         
@@ -29,7 +29,10 @@ class EventLog(object):
         self.log_start_time = 0
         self.data_path = data_path
         self.headers = headers
-        self.filename = self.data_path + 'Log_file_' + strftime('%Y-%m') + '.csv'
+        if filedate == None:
+            self.filename = self.data_path + 'Log_file_' + strftime('%Y-%m') + '.csv'
+        else:
+            self.filename = self.data_path + 'Log_file_' + filedate + '.csv'
         self.file_dict = {}
         self.file_already_exists = False
         
@@ -43,8 +46,9 @@ class EventLog(object):
                         self.file_dict[key].append(int(row[key]))
             self.file_already_exists = True
         except Exception:
-            print(self.filename, 'file will be created')
-            self.init_logfile()
+            if init:
+                print(self.filename, 'file will be created')
+                self.init_logfile()
     
     def init_logfile(self):
         '''

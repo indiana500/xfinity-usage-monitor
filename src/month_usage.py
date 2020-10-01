@@ -38,6 +38,15 @@ class MonthUsage(object):
             self.usage_data[key].append(x)
         return
     
+    def remove_last_data_point(self):
+        '''
+        remove the last data point from month list
+        cannot be undone
+        '''
+        for key in self.usage_data:
+            self.usage_data[key].pop()
+        return
+    
     def get_dict(self):
         return self.usage_data
     
@@ -56,7 +65,7 @@ class MonthUsage(object):
     def get_alarm_list(self):
         return self.usage_data['90% Usage (GB)']
        
-    def plot_data(self):
+    def plot_data(self, plot_name='curr_month_plot'):
         '''
         create and save a png of the plot of data use and allotment for the current month
         '''
@@ -97,7 +106,7 @@ class MonthUsage(object):
         
         # show or save the plot depending which line is commented out
 #         plt.show()
-        plt.savefig(DATA_PATH + 'curr_month_plot.png')
+        plt.savefig(DATA_PATH + plot_name + '.png')
         plt.close('all')
 
         return
