@@ -93,7 +93,7 @@ class MonthUsage(object):
         current_percent_string = ('Currently running at: ' +
                                   '{:.1f}'.format(100 * self.usage_data['Usage Month to Date (GB)'][-1] / self.usage_data['100% Usage (GB)'][-1])
                                   + '%')
-        usage_string = ('Current Estimated Monthly Usage: ' +
+        usage_string = ('Projected monthly Usage: ' +
                         str(self.usage_data['Projected Usage (GB)'][-1]) +
                         ' GB of ' + str(self.usage_data['Alloted Usage (GB)'][-1]) + ' GB allowed')
         if self.usage_data['Projected Usage (GB)'][-1] >= self.usage_data['Alloted Usage (GB)'][-1]:
