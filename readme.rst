@@ -16,12 +16,14 @@ Requirements
 -  Python (tested with 3.7)
 -  matplotlib
 -  smtplib
+-  firefox
 -  `xfinity-usage <https://github.com/jantman/xfinity-usage/>`_  Python package
--  `selenium <http://selenium-python.readthedocs.io/>`_  Python package
--  `geckodriver <https://github.com/mozilla/geckodriver/>`_  Python package, or download from `here <https://github.com/mozilla/geckodriver/releases/>`_
+-  `selenium <http://selenium-python.readthedocs.io/>`_  
+-  `geckodriver <https://github.com/mozilla/geckodriver/>`_  download from `here <https://github.com/mozilla/geckodriver/releases/>`_
 
    -  Based on testing done after xfinity website changes, geckodriver (firefox) seemed to be the optimum browser to use to access the xfinity website
    -  I used v0.23.0, the last one released as a compiled version for the raspberry pi
+  
 
 Usage
 -----
