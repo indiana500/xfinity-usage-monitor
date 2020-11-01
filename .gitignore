@@ -3,3 +3,4 @@ xfinity_account_settings.py
 scratch
 data
 *.log
+pycache
