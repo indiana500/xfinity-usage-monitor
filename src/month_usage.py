@@ -88,6 +88,11 @@ class MonthUsage(object):
         ax.xaxis.set_major_formatter(day_fmt)
         ax.xaxis.set_label_text('Time')
         ax.yaxis.set_label_text('Usage, GB')
+        plt.annotate('{:.0f}'.format(self.usage_data['Usage Month to Date (GB)'][-1]), 
+                     (plot_x_series[-1], self.usage_data['Usage Month to Date (GB)'][-1]), 
+                     textcoords="offset points", # how to position the text
+                     xytext=(0,5), # distance from text to points (x,y)
+                     ha='center')
         
         # add usage information text
         current_percent_string = ('Currently running at: ' +
