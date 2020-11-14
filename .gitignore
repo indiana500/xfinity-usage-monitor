@@ -3,12 +3,7 @@ xfinity_account_settings.py
 scratch
 data
 *.log
-<<<<<<< Upstream, based on origin/master
-pycache
-
-=======
  
->>>>>>> 9d2ac89 update ignore file
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
