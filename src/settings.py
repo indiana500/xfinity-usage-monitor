@@ -26,7 +26,7 @@ path for raspbian
 '''
 # dir_path = os.getcwd()
 # DATA_PATH = os.path.dirname(dir_path) + '/data/'
-DATA_PATH = '/home/pi/Public/xfinity-monitor/data/'
+DATA_PATH = '/home/pi/Public/xfinity-usage-monitor/data/'
 
 '''
 path for windows

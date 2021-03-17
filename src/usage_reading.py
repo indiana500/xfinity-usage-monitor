@@ -6,7 +6,7 @@ Created on Sep 2, 2020
 
 from time import localtime, time, mktime
 from datetime import date
-from calendar import monthlen
+from calendar import monthrange
 from constants import SEC_PER_DAY
 from settings import DATA_HEADERS, USAGE_ALARM_LEVEL
 
@@ -96,7 +96,7 @@ class UsageReading(object):
         '''
         return number of days in the current month
         '''
-        return monthlen(self.get_year(), self.get_month())
+        return monthrange(self.get_year(), self.get_month())[1]
     
     def end_of_month_timestamp(self):
         '''
