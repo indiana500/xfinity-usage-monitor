@@ -27,6 +27,6 @@
 # run xfinity monitor at 10 minutes before every even hour, so you get close to end of day
 50 1-23/2 * * * export DISPLAY=:0; bash /home/pi/Public/xfinity-usage-monitor/run_xfinity_monitor.sh
 # at the top of each even hour, copy the plot to web server page
-00 */2 * * * /bin/cp -u /home/pi/Public/xfinity-usage-monitor/data/curr_month_plot.png /var/www/html/fig
+00 */2 * * * /bin/cp -u /home/pi/Public/xfinity-usage-monitor/data/* /var/www/html/data
 # at the start of each month, save off the plot of xfinity usage from prior month
 00 1 1 * * bash /home/pi/Public/xfinity-usage-monitor/run_xfinity_plot.sh
